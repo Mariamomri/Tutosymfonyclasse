@@ -21,8 +21,8 @@ final class RecipeController extends AbstractController
     {
         if ($this->getUser()) {
             /**
-             * @var User 
-             */
+            * @var User 
+            */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash("info", $translator->trans("recipeController.index.emailNotVerified"));
@@ -94,16 +94,16 @@ final class RecipeController extends AbstractController
     {
         if ($this->getUser()) {
             /**
-             * @var User 
-             */
+            * @var User 
+            */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash('error', 'You must confirm your email to edit Recipe !');
                 return $this->redirectToRoute('app_recipe_index');
-            } elseif ($recipe->getUser()->getEmail() !== $user->getEmail()) {
-                $this->addFlash('error', 'You must be the user ' . $recipe->getUser()->getEmail() . ' to edit this recipe');
+            } elseif($recipe->getUser()->getEmail() !== $user->getEmail()){
+                $this->addFlash('error', 'You must be the user '.$recipe->getUser()->getEmail() . ' to edit this recipe' );
                 return $this->redirectToRoute('app_recipe_index');
-            }
+            }  
         } else {
             $this->addFlash('error', 'You must login to edit Recipe !');
             return $this->redirectToRoute('app_login');
@@ -127,16 +127,16 @@ final class RecipeController extends AbstractController
 
     #[Route(path: '/recette/create', name: 'app_recipe_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
-    {
+    {        
         if ($this->getUser()) {
             /**
-             * @var User 
-             */
+            * @var User 
+            */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash('error', 'You must confirm your email to create Recipe !');
                 return $this->redirectToRoute('app_recipe_index');
-            }
+            }   
         } else {
             $this->addFlash('error', 'You must login to create Recipe !');
             return $this->redirectToRoute('app_login');
@@ -162,16 +162,16 @@ final class RecipeController extends AbstractController
     {
         if ($this->getUser()) {
             /**
-             * @var User 
-             */
+            * @var User 
+            */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash('error', 'You must confirm your email to delete Recipe !');
                 return $this->redirectToRoute('app_recipe_index');
-            } elseif ($recipe->getUser()->getEmail() !== $user->getEmail()) {
-                $this->addFlash('error', 'You must be the user ' . $recipe->getUser()->getEmail() . ' to delete this recipe');
-                return $this->redirectToRoute('app_recipe_index');
-            }
+            } elseif($recipe->getUser()->getEmail() !== $user->getEmail()){
+                $this->addFlash('error', 'You must be the user '.$recipe->getUser()->getEmail() . ' to delete this recipe' );
+                return $this->redirectToRoute('app_recipe_index'); 
+            } 
         } else {
             $this->addFlash('error', 'You must login to delete Recipe !');
             return $this->redirectToRoute('app_login');

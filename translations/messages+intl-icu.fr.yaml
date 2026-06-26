@@ -1,13 +1,18 @@
 navBar.home: Accueil
-navBar.recipeList: "Liste des Recettes"
-navBar.addRecipe: "Ajouter une Recette"
-navBar.account: "Mon Compte"
+navBar.recipeList: 'Liste des Recettes'
+navBar.addRecipe: 'Ajouter une Recette'
+navBar.account: 'Mon Compte'
 navBar.register: "S'enregistrer"
-navBar.login: "Se connecter"
-navBar.logout: "Se déconnecter"
-"Forgot Password ?": "Mot de passe oublié ?"
-"Not registered yet ?": "Pas encore enrigistré ?"
-"Create an account": "Créer un compte"
+navBar.login: 'Se connecter'
+navBar.logout: 'Se déconnecter'
+'Forgot Password ?': 'Mot de passe oublié ?'
+'Not registered yet ?': 'Pas encore enrigistré ?'
+'Create an account': 'Créer un compte'
 registerTemplate.title: Inscription
 registerTemplate.button: "S'enregistrer"
-"Your email address is not verified !": "Votre adresse mail n'est pas vérifiée !"
+recipeController.index.emailNotVerified: "Votre adresse mail n'est pas vérifiée !"
+'Reset your password': 'Réinitialiser votre mot de passe'
+"Enter your email address, and we will send you a\n                        link to reset your password.": "Introduire votre adresse mail, et on vous enverra un\n                        lien pour réinitialiser votre mot de passe."
+'Send password reset email': "Modifier le mot de passe"
+'Reset password': 'Réinitialiser mot de passe'
+'Please sign in': 'Connectez-vous'

@@ -10,11 +10,11 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260626084013 extends AbstractMigration
+final class Version20260626083153 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Ajout de reset password';
     }
 
     public function up(Schema $schema): void
