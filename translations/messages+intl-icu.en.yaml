@@ -1,0 +1,13 @@
+recipeController.index.emailNotVerified: __recipeController.index.emailNotVerified
+navBar.home: __navBar.home
+navBar.recipeList: __navBar.recipeList
+navBar.addRecipe: __navBar.addRecipe
+navBar.account: __navBar.account
+navBar.logout: __navBar.logout
+navBar.register: __navBar.register
+navBar.login: __navBar.login
+registerTemplate.title: __registerTemplate.title
+registerTemplate.button: __registerTemplate.button
+'Forgot Password ?': '__Forgot Password ?'
+'Not registered yet ?': '__Not registered yet ?'
+'Create an account': '__Create an account'
