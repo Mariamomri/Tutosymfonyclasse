@@ -45,12 +45,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Length(min: 2,max: 35)]
+    #[Assert\Length(min: 2, max: 35)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Length(min: 2,max: 70)]
+    #[Assert\Length(min: 2, max: 70)]
     private ?string $lastname = null;
 
     /**
@@ -139,7 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __serialize(): array
     {
         $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
 
         return $data;
     }
