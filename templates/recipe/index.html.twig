@@ -6,6 +6,11 @@
 {% block body %}
 {% set nbRecipe = recipes|length %}
     <h1 align="center">Bienvenue dans la liste des Recettes ({{ nbRecipe }})</h1>
+
+    {% include '_search_data.html.twig' with {
+        'form': form
+        } only %}
+
     <div class = "container text-center">
         <div class = "row">
             {% for recipe in recipes %}
@@ -16,7 +21,7 @@
                     <p><img src= {{ vich_uploader_asset(recipe, 'imageFile') }} width="250" height="370"></p>
 
                     <p>Submitted {{ recipe.createdAt |ago }}</p>
-                   
+
                     <p>By {{ recipe.user.firstname ~" "~ recipe.user.lastname }}</p>
                 </div>        
             {% else %}

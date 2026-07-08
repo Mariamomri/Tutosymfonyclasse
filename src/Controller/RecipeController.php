@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
@@ -15,6 +17,8 @@ use Symfony\Component\Routing\Attribute\Route;
 // use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+
+
 final class RecipeController extends AbstractController
 {
     #[Route(path: "/recette", name: "app_recipe_index")]
@@ -22,8 +26,8 @@ final class RecipeController extends AbstractController
     {
         if ($this->getUser()) {
             /**
-            * @var User 
-            */
+             * @var User 
+             */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash("info", $translator->trans("recipeController.index.emailNotVerified"));
@@ -40,7 +44,7 @@ final class RecipeController extends AbstractController
         // );
 
         //la pagination en passant par recipe repository
-        $recipes = $repository->findRecipes($request->query->getInt('page',1));
+        $recipes = $repository->findRecipes($request->query->getInt('page', 1));
         /*va recuperer toutes les recettes (equivalent Select *)
         //en utilisant RecipeRepository
         // $recipes = $em->getRepository(Recipe::class)->findAll();
@@ -78,7 +82,21 @@ final class RecipeController extends AbstractController
         // $em->flush();
         */
 
+
+
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($searchData);
+            $recipes = $repository->findRecipesBySearch($searchData);
+        }
+
         return $this->render('recipe/index.html.twig', [
+            'form' => $form->createView(),
             "recipes" => $recipes
         ]);
     }
@@ -104,16 +122,16 @@ final class RecipeController extends AbstractController
     {
         if ($this->getUser()) {
             /**
-            * @var User 
-            */
+             * @var User 
+             */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash('error', $translator->trans('You must confirm your email to edit Recipe !'));
                 return $this->redirectToRoute('app_recipe_index');
-            } elseif($recipe->getUser()->getEmail() !== $user->getEmail()){
-                $this->addFlash('error', $translator->trans('You must be the user ').$recipe->getUser()->getEmail() . $translator->trans(' to edit this recipe') );
+            } elseif ($recipe->getUser()->getEmail() !== $user->getEmail()) {
+                $this->addFlash('error', $translator->trans('You must be the user ') . $recipe->getUser()->getEmail() . $translator->trans(' to edit this recipe'));
                 return $this->redirectToRoute('app_recipe_index');
-            }  
+            }
         } else {
             $this->addFlash('error', $translator->trans('You must login to edit Recipe !'));
             return $this->redirectToRoute('app_login');
@@ -137,16 +155,16 @@ final class RecipeController extends AbstractController
 
     #[Route(path: '/recette/create', name: 'app_recipe_create')]
     public function create(Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
-    {        
+    {
         if ($this->getUser()) {
             /**
-            * @var User 
-            */
+             * @var User 
+             */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash('error', $translator->trans('You must confirm your email to create Recipe !'));
                 return $this->redirectToRoute('app_recipe_index');
-            }   
+            }
         } else {
             $this->addFlash('error', $translator->trans('You must login to create Recipe !'));
             return $this->redirectToRoute('app_login');
@@ -172,16 +190,16 @@ final class RecipeController extends AbstractController
     {
         if ($this->getUser()) {
             /**
-            * @var User 
-            */
+             * @var User 
+             */
             $user = $this->getUser();
             if (!$user->isVerified()) {
                 $this->addFlash('error', $translator->trans('You must confirm your email to delete Recipe !'));
                 return $this->redirectToRoute('app_recipe_index');
-            } elseif($recipe->getUser()->getEmail() !== $user->getEmail()){
-                $this->addFlash('error', $translator->trans('You must be the user ').$recipe->getUser()->getEmail() . $translator->trans(' to delete this recipe' ));
-                return $this->redirectToRoute('app_recipe_index'); 
-            } 
+            } elseif ($recipe->getUser()->getEmail() !== $user->getEmail()) {
+                $this->addFlash('error', $translator->trans('You must be the user ') . $recipe->getUser()->getEmail() . $translator->trans(' to delete this recipe'));
+                return $this->redirectToRoute('app_recipe_index');
+            }
         } else {
             $this->addFlash('error', $translator->trans('You must login to delete Recipe !'));
             return $this->redirectToRoute('app_login');
