@@ -89,10 +89,17 @@ final class RecipeController extends AbstractController
 
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($searchData);
+            // dd($searchData->q);
+            $searchData->page = $request->query->getInt('page', 1);
+
             $recipes = $repository->findRecipesBySearch($searchData);
+            // dd($recipes);
+
+            return $this->render('recipe/index.html.twig', [
+                'form' => $form->createView(),
+                "recipes" => $recipes
+            ]);
         }
 
         return $this->render('recipe/index.html.twig', [
