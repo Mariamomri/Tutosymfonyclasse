@@ -71,29 +71,23 @@ class RecipeRepository extends ServiceEntityRepository
     //        ;
     //    }
     /**
-     * GET published recipes by search data
+     * GET recipes by search data
      * @param SearchData $searchData
      * @return PaginationInterface
      */
-    public function findBySearch(SearchData $searchData): PaginationInterface
+    public function findRecipesBySearch(SearchData $searchData): PaginationInterface
     {
-        $data = $this->createQueryBuilder('r')
-            ->where('r.state LIKE :state')
-            ->setParameter('state', '%STATE_PUBLISH%')
-            ->addOrderBy('r.createdAt', 'DESC');
+        $query = $this->createQueryBuilder('r')
+            ->addOrderBy('r.title', 'ASC');
 
         if (!empty($searchData->q)) {
-            $data = $data
+            $query = $query
                 ->andWhere('r.title LIKE :q')
-                ->setParameter('q', "% $searchData->q }%");
+                ->setParameter('q', '%' . $searchData->q . '%');
         }
 
-        $data = $data
-            ->getQuery()
-            ->getResult();
+        $data = $query->getQuery()->getResult();
 
-        $recipes = $this->paginatorInterface->paginate($data, $searchData->page, 9);
-
-        return $recipes;
+        return $this->paginatorInterface->paginate($data, $searchData->page, 9);
     }
 }

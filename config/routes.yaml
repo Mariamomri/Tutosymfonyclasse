@@ -12,3 +12,7 @@ controllers:
 # home:
 #     path: /
 #     controller: App\Controller\HomeController::index
+
+# config/routes.yaml
+api_login_check:
+    path: /api/login_check

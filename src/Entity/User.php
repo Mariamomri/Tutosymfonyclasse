@@ -14,6 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\Timestampable;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Attribute as Vich;
+use ApiPlatform\Metadata\ApiResource;
+
+#[ApiResource]
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -48,12 +51,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Length(min: 2,max: 35)]
+    #[Assert\Length(min: 2, max: 35)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Length(min: 2,max: 70)]
+    #[Assert\Length(min: 2, max: 70)]
     private ?string $lastname = null;
 
     /**

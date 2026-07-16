@@ -19,6 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 
+
 final class RecipeController extends AbstractController
 {
     #[Route(path: "/recette", name: "app_recipe_index")]

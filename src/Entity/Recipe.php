@@ -12,7 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Attribute as Vich;
+use ApiPlatform\Metadata\ApiResource;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ORM\Table(name: "recipes")]
 #[ORM\HasLifecycleCallbacks]
@@ -27,7 +29,7 @@ class Recipe
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Length(min: 10,max: 50)]
+    #[Assert\Length(min: 10, max: 50)]
     #[InappropriateWords()]
     private ?string $title = null;
 
@@ -103,7 +105,7 @@ class Recipe
         return $this;
     }
 
-    
+
 
     public function getDuration(): ?int
     {
@@ -166,7 +168,7 @@ class Recipe
         return $this->imageFile;
     }
 
-    
+
     public function setImageSize(?int $imageSize): void
     {
         $this->imageSize = $imageSize;
